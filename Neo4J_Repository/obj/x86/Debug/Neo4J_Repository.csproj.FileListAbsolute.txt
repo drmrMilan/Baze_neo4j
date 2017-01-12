@@ -42,3 +42,6 @@ C:\Users\milan\Desktop\Neo4J_Repository\Neo4J_Repository\obj\x86\Debug\Neo4J_Rep
 C:\Users\milan\Desktop\Neo4J_Repository\Neo4J_Repository\obj\x86\Debug\Neo4J_Repository.csproj.GenerateResource.Cache
 C:\Users\milan\Desktop\Neo4J_Repository\Neo4J_Repository\obj\x86\Debug\Neo4J_Repository.exe
 C:\Users\milan\Desktop\Neo4J_Repository\Neo4J_Repository\obj\x86\Debug\Neo4J_Repository.pdb
+C:\Users\milan\Documents\GIT\Baze\Neo4J_Repository\bin\Debug\Neo4J_Repository.exe.config
+C:\Users\milan\Documents\GIT\Baze\Neo4J_Repository\obj\x86\Debug\Neo4J_Repository.exe
+C:\Users\milan\Documents\GIT\Baze\Neo4J_Repository\obj\x86\Debug\Neo4J_Repository.pdb
