@@ -15,7 +15,6 @@ namespace Neo4J_Repository
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
             Application.Run(new Form1());
         }
     }
