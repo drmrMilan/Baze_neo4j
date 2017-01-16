@@ -29,7 +29,7 @@ namespace Neo4J_Repository
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            var query = new Neo4jClient.Cypher.CypherQuery("match (n:Prevoznik) return n",
+            var query = new CypherQuery("match (n:Prevoznik) return n",
                                                            new Dictionary<string, object>(), CypherResultMode.Set);
             List<Prevoznik> prevoznik = ((IRawGraphClient)client).ExecuteGetCypherResults<Prevoznik>(query).ToList();
 
@@ -61,7 +61,7 @@ namespace Neo4J_Repository
             Dictionary<string, object> queryDict = new Dictionary<string, object>();
             queryDict.Add("fab", fabrikaIme);
 
-            var query = new Neo4jClient.Cypher.CypherQuery("match (n:Prevoznik)<-[r:UTOVAR]-(a:Fabrika) where a.Ime =~ {fab} return distinct n",
+            var query = new Neo4jClient.Cypher.CypherQuery("match (n:Prevoznik)<-[:UTOVAR]-(a:Fabrika) where a.Ime =~ {fab} return distinct n",
                                                             queryDict, CypherResultMode.Set);
 
             List<Prevoznik> prevoznik = ((IRawGraphClient)client).ExecuteGetCypherResults<Prevoznik>(query).ToList();
@@ -118,10 +118,51 @@ namespace Neo4J_Repository
 
             foreach (Prevoznik a in prevoznik)
             {
-                //DateTime bday = a.getBirthday();
                 MessageBox.Show(a.Ime);
             }
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            string fabrikaIme = directorTextBox.Text;
+
+            Dictionary<string, object> queryDict = new Dictionary<string, object>();
+            queryDict.Add("fab", fabrikaIme);
+
+            var query = new Neo4jClient.Cypher.CypherQuery("MATCH(fabrika: Fabrika { Ime: {fab}})-[:UTOVAR] - (n:Isporuka)-[:ISTOVAR] -(p1: Prodavnica { Ime: 'Gigatron'}),(p2:Prodavnica { Ime: 'WinWin'}),(p3:Prodavnica { Ime: 'IDEA'}), (p4:Prodavnica { Ime: 'Vip'}) WHERE(fabrika) -[:UTOVAR] - (n)AND(n) -[:ISTOVAR] - (p2)AND(n) -[:ISTOVAR] - (p1)AND(n) -[:ISTOVAR] - (p3)AND(n) -[:ISTOVAR] - (p4) RETURN n", queryDict, CypherResultMode.Set);
+
+            List<Isporuka> prevoznik = ((IRawGraphClient)client).ExecuteGetCypherResults<Isporuka>(query).ToList();
+            try
+            {
+                MessageBox.Show(prevoznik[0].IdIsporuke);
+            }
+            catch
+            {
+                MessageBox.Show("Ne postoji");
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            Form2.genform2(client);
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            Form3.genform3(client);
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            Form4.genform4(client);
+        }
+
+        private void button18_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        
 
         //        private void button4_Click(object sender, EventArgs e)
         //        {
