@@ -38,17 +38,12 @@
             this.directorTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
-            this.directorActorsTextBox = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.button12 = new System.Windows.Forms.Button();
             this.button13 = new System.Windows.Forms.Button();
             this.button14 = new System.Windows.Forms.Button();
@@ -58,6 +53,12 @@
             this.button18 = new System.Windows.Forms.Button();
             this.button19 = new System.Windows.Forms.Button();
             this.button20 = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button21 = new System.Windows.Forms.Button();
+            this.button22 = new System.Windows.Forms.Button();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -124,7 +125,7 @@
             // 
             // directorTextBox
             // 
-            this.directorTextBox.Location = new System.Drawing.Point(12, 186);
+            this.directorTextBox.Location = new System.Drawing.Point(9, 32);
             this.directorTextBox.Name = "directorTextBox";
             this.directorTextBox.Size = new System.Drawing.Size(159, 20);
             this.directorTextBox.TabIndex = 7;
@@ -132,7 +133,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 170);
+            this.label3.Location = new System.Drawing.Point(6, 16);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(42, 13);
             this.label3.TabIndex = 8;
@@ -140,38 +141,13 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(184, 176);
+            this.button4.Location = new System.Drawing.Point(9, 111);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(133, 30);
             this.button4.TabIndex = 9;
             this.button4.Text = "Pretrazi";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // directorActorsTextBox
-            // 
-            this.directorActorsTextBox.Location = new System.Drawing.Point(12, 229);
-            this.directorActorsTextBox.Name = "directorActorsTextBox";
-            this.directorActorsTextBox.Size = new System.Drawing.Size(159, 20);
-            this.directorActorsTextBox.TabIndex = 10;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 213);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(124, 13);
-            this.label4.TabIndex = 11;
-            this.label4.Text = "Ime ili deo imena reditelja";
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(184, 223);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(191, 23);
-            this.button5.TabIndex = 12;
-            this.button5.Text = "Pronađi glumce u filmovima reditelja ";
-            this.button5.UseVisualStyleBackColor = true;
             // 
             // button6
             // 
@@ -230,24 +206,6 @@
             this.button11.Text = "Sve Fabrike";
             this.button11.UseVisualStyleBackColor = true;
             this.button11.Click += new System.EventHandler(this.button11_Click);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(323, 176);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(175, 13);
-            this.label5.TabIndex = 19;
-            this.label5.Text = "(Da li postoji isporuka koja dostavlja";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(323, 193);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(185, 13);
-            this.label6.TabIndex = 20;
-            this.label6.Text = "od zadate fabrike do svih prodavnica)";
             // 
             // button12
             // 
@@ -333,11 +291,64 @@
             this.button20.Text = "Izmeni prodavnicu";
             this.button20.UseVisualStyleBackColor = true;
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 66);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(226, 13);
+            this.label7.TabIndex = 30;
+            this.label7.Text = "Prodavnice (do pet vrednosti)(razdvojiti sa \", \")";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(9, 85);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(236, 20);
+            this.textBox1.TabIndex = 31;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.directorTextBox);
+            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.button4);
+            this.groupBox1.Location = new System.Drawing.Point(323, 70);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(274, 147);
+            this.groupBox1.TabIndex = 32;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Od fabrike do prodavnice/a";
+            // 
+            // button21
+            // 
+            this.button21.Location = new System.Drawing.Point(12, 181);
+            this.button21.Name = "button21";
+            this.button21.Size = new System.Drawing.Size(191, 23);
+            this.button21.TabIndex = 33;
+            this.button21.Text = "Najvece 3 porudzbine";
+            this.button21.UseVisualStyleBackColor = true;
+            this.button21.Click += new System.EventHandler(this.button21_Click);
+            // 
+            // button22
+            // 
+            this.button22.Location = new System.Drawing.Point(12, 210);
+            this.button22.Name = "button22";
+            this.button22.Size = new System.Drawing.Size(204, 23);
+            this.button22.TabIndex = 34;
+            this.button22.Text = "3 Prodavnice sa najnovijim isporukama";
+            this.button22.UseVisualStyleBackColor = true;
+            this.button22.Click += new System.EventHandler(this.button22_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(609, 411);
+            this.ClientSize = new System.Drawing.Size(954, 542);
+            this.Controls.Add(this.button22);
+            this.Controls.Add(this.button21);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button20);
             this.Controls.Add(this.button19);
             this.Controls.Add(this.button18);
@@ -347,20 +358,12 @@
             this.Controls.Add(this.button14);
             this.Controls.Add(this.button13);
             this.Controls.Add(this.button12);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.button11);
             this.Controls.Add(this.button10);
             this.Controls.Add(this.button9);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button6);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.directorActorsTextBox);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.directorTextBox);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.movieNameTextBox);
@@ -371,6 +374,8 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -388,17 +393,12 @@
         private System.Windows.Forms.TextBox directorTextBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.TextBox directorActorsTextBox;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Button button11;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Button button13;
         private System.Windows.Forms.Button button14;
@@ -408,6 +408,11 @@
         private System.Windows.Forms.Button button18;
         private System.Windows.Forms.Button button19;
         private System.Windows.Forms.Button button20;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button button21;
+        private System.Windows.Forms.Button button22;
     }
 }
 

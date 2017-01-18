@@ -121,27 +121,96 @@ namespace Neo4J_Repository
                 MessageBox.Show(a.Ime);
             }
         }
-
         private void button4_Click(object sender, EventArgs e)
         {
-            string fabrikaIme = directorTextBox.Text;
-
             Dictionary<string, object> queryDict = new Dictionary<string, object>();
+            string fabrikaIme = directorTextBox.Text;
+            string input = textBox1.Text;
+            string[] prodavnice = new string[5];
             queryDict.Add("fab", fabrikaIme);
+            prodavnice[0] = "";
+            prodavnice[1] = "";
+            prodavnice[2] = "";
+            prodavnice[3] = "";
+            var query = new Neo4jClient.Cypher.CypherQuery("", null, CypherResultMode.Set);
+            prodavnice[4] = "";
+            prodavnice = input.Split(',');
+            if (prodavnice.Count() == 0)
+            {
+                MessageBox.Show("Niste uneli ni jednu prodavnicu!");
+            }
+            if (prodavnice.Count() == 1)
+            {
+                queryDict.Add("pr1", prodavnice[0]);
+                query = new Neo4jClient.Cypher.CypherQuery("MATCH(fabrika: Fabrika { Ime: {fab}})-[:UTOVAR] - (n:Isporuka)-[:ISTOVAR] " 
+                    + "-(p1: Prodavnica { Ime: {pr1}}) WHERE(fabrika) -[:UTOVAR] - (n) AND (n) -[:ISTOVAR] - (p1) RETURN n", queryDict, CypherResultMode.Set);
 
-            var query = new Neo4jClient.Cypher.CypherQuery("MATCH(fabrika: Fabrika { Ime: {fab}})-[:UTOVAR] - (n:Isporuka)-[:ISTOVAR] -(p1: Prodavnica { Ime: 'Gigatron'}),(p2:Prodavnica { Ime: 'WinWin'}),(p3:Prodavnica { Ime: 'IDEA'}), (p4:Prodavnica { Ime: 'Vip'}) WHERE(fabrika) -[:UTOVAR] - (n)AND(n) -[:ISTOVAR] - (p2)AND(n) -[:ISTOVAR] - (p1)AND(n) -[:ISTOVAR] - (p3)AND(n) -[:ISTOVAR] - (p4) RETURN n", queryDict, CypherResultMode.Set);
+            }
+            if (prodavnice.Count() == 2)
+            {
+                queryDict.Add("pr1", prodavnice[0]);
+                queryDict.Add("pr2", prodavnice[1]);
+                query = new Neo4jClient.Cypher.CypherQuery("MATCH(fabrika: Fabrika { Ime: {fab}})-[:UTOVAR] - (n:Isporuka)-[:ISTOVAR] "
+                    +"-(p1: Prodavnica { Ime: {pr1}}),(p2:Prodavnica { Ime: {pr2}}) WHERE(fabrika) -[:UTOVAR] - (n)AND(n) -[:ISTOVAR] "
+                    +"- (p2)AND(n) -[:ISTOVAR] - (p1) RETURN n", queryDict, CypherResultMode.Set);
 
+            }
+            if (prodavnice.Count() == 3)
+            {
+                queryDict.Add("pr1", prodavnice[0]);
+                queryDict.Add("pr2", prodavnice[1]);
+                queryDict.Add("pr3", prodavnice[2]);
+                query = new Neo4jClient.Cypher.CypherQuery("MATCH(fabrika: Fabrika { Ime: {fab}})-[:UTOVAR] - (n:Isporuka)-[:ISTOVAR] "
+                    +"-(p1: Prodavnica { Ime: {pr1}}),(p2:Prodavnica { Ime: {pr2}}),(p3:Prodavnica { Ime: {pr3}}) WHERE(fabrika) -[:UTOVAR] "
+                    +"- (n)AND(n) -[:ISTOVAR] - (p2)AND(n) -[:ISTOVAR] - (p1)AND(n) -[:ISTOVAR] - (p3) RETURN n", queryDict, CypherResultMode.Set);
+
+            }
+            if (prodavnice.Count() == 4)
+            {
+                queryDict.Add("pr1", prodavnice[0]);
+                queryDict.Add("pr2", prodavnice[1]);
+                queryDict.Add("pr3", prodavnice[2]);
+                queryDict.Add("pr4", prodavnice[3]);
+                query = new Neo4jClient.Cypher.CypherQuery("MATCH(fabrika: Fabrika { Ime: {fab}})-[:UTOVAR] - (n:Isporuka)-[:ISTOVAR] "
+                    +"-(p1: Prodavnica { Ime: {pr1}}),(p2:Prodavnica { Ime: {pr2}}),(p3:Prodavnica { Ime: {pr3}}), (p4:Prodavnica { Ime: {pr4}}) "
+                    +" WHERE(fabrika) -[:UTOVAR] - (n)AND(n) -[:ISTOVAR] - (p2)AND(n) -[:ISTOVAR] - (p1)AND(n) -[:ISTOVAR] - (p3)AND(n) -[:ISTOVAR] "
+                    +"- (p4) RETURN n", queryDict, CypherResultMode.Set);
+            }
+            if (prodavnice.Count() == 5)
+            {
+                queryDict.Add("pr1", prodavnice[0]);
+                queryDict.Add("pr2", prodavnice[1]);
+                queryDict.Add("pr3", prodavnice[2]);
+                queryDict.Add("pr4", prodavnice[3]);
+                queryDict.Add("pr5", prodavnice[4]);
+                query = new Neo4jClient.Cypher.CypherQuery("MATCH(fabrika: Fabrika { Ime: {fab}})-[:UTOVAR] - (n:Isporuka)-[:ISTOVAR] "
+                    +"-(p1: Prodavnica { Ime: {pr1}}),(p2:Prodavnica { Ime: {pr2}}),(p3:Prodavnica { Ime: {pr3}}), (p4:Prodavnica { Ime: {pr4}}),"
+                    +" (p4:Prodavnica { Ime: {pr4}}) WHERE(fabrika) -[:UTOVAR] - (n)AND(n) -[:ISTOVAR] - (p2)AND(n) -[:ISTOVAR] - (p1)AND(n) "
+                    +"-[:ISTOVAR] - (p3)AND(n) -[:ISTOVAR] - (p4)AND(n) -[:ISTOVAR] - (p5) RETURN n", queryDict, CypherResultMode.Set);
+            }
             List<Isporuka> prevoznik = ((IRawGraphClient)client).ExecuteGetCypherResults<Isporuka>(query).ToList();
             try
             {
-                MessageBox.Show(prevoznik[0].IdIsporuke);
+                if (prevoznik.Count() == 0)
+                {
+                    MessageBox.Show("Ne postoji");
+                    
+                }
+
+                else
+                {
+                    foreach (Isporuka i in prevoznik)
+                    {
+
+                        MessageBox.Show(i.IdIsporuke);
+                    }
+                }
             }
             catch
             {
                 MessageBox.Show("Ne postoji");
             }
         }
-
         private void button6_Click(object sender, EventArgs e)
         {
             Form2.genform2(client);
@@ -159,10 +228,43 @@ namespace Neo4J_Repository
 
         private void button18_Click(object sender, EventArgs e)
         {
-
+            Form5.genform5(client);
         }
 
-        
+        private void button21_Click(object sender, EventArgs e)
+        {
+            var query = new Neo4jClient.Cypher.CypherQuery("match (n:Isporuka)-[b:UTOVAR] -(a) return n order by b.Tezina Desc",
+                                                           new Dictionary<string, object>(), CypherResultMode.Set);
+            List<Isporuka> prodavnica = ((IRawGraphClient)client).ExecuteGetCypherResults<Isporuka>(query).ToList();
+            var query1 = new Neo4jClient.Cypher.CypherQuery("match (n:Isporuka)-[b:UTOVAR] -(a) return b order by b.Tezina Desc LIMIT 3",
+                                                           new Dictionary<string, object>(), CypherResultMode.Set);
+
+
+            List<Utovar> uto = ((IRawGraphClient)client).ExecuteGetCypherResults<Utovar>(query1).ToList();
+            
+                for (int i = 0; i < uto.Count(); i++)
+                {
+                    MessageBox.Show("ID ISPORUKE: " + prodavnica[i].IdIsporuke + "\nID VOZILA: " + prodavnica[i].IdVozila + "\nTEZINA ISPORUKE: " + uto[i].Tezina);
+                }
+            
+        }
+
+        private void button22_Click(object sender, EventArgs e)
+        {
+            
+            var query1 = new Neo4jClient.Cypher.CypherQuery("match (n)-[b:UTOVAR] -(a:Isporuka)-[z:ISTOVAR]-(h:Prodavnica) return h order by b.Godina, b.Mesec, b.Dan ASC LIMIT 3",
+                                                           new Dictionary<string, object>(), CypherResultMode.Set);
+
+
+            List<Prodavnica> uto = ((IRawGraphClient)client).ExecuteGetCypherResults<Prodavnica>(query1).ToList();
+
+            for (int i = uto.Count()-1; i >= 0; i--)
+            {
+                MessageBox.Show("IME PRODAVNICE: " + uto[i].Ime + "\nROBA: " + uto[i].Roba);
+            }
+        }
+
+
 
         //        private void button4_Click(object sender, EventArgs e)
         //        {

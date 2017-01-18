@@ -29,6 +29,7 @@ namespace Neo4J_Repository
         }
         private void button1_Click(object sender, EventArgs e)
         {
+
             string im = textBox1.Text;
             string ad = textBox2.Text;
             string rb = textBox3.Text;
@@ -36,14 +37,21 @@ namespace Neo4J_Repository
             queryDict.Add("im", im);
             queryDict.Add("ad", ad);
             queryDict.Add("rb", rb);
-            var query = new CypherQuery("CREATE (n:Prodavnica {Ime: {im}, Adresa: {ad}, Roba: {rb}}) return n",
+            if (String.IsNullOrEmpty(im) || String.IsNullOrEmpty(ad) || String.IsNullOrEmpty(rb))
+            {
+                MessageBox.Show("Morate uneti tekst u polja!");
+            }
+            else
+            {
+                var query = new CypherQuery("CREATE (n:Prodavnica {Ime: {im}, Adresa: {ad}, Roba: {rb}}) return n",
                                                             queryDict, CypherResultMode.Set);
 
-            List<Fabrika> actors = ((IRawGraphClient)clients).ExecuteGetCypherResults<Fabrika>(query).ToList();
+                List<Fabrika> actors = ((IRawGraphClient)clients).ExecuteGetCypherResults<Fabrika>(query).ToList();
 
-            foreach (Fabrika a in actors)
-            {
-                MessageBox.Show("Dodata je prodavnica " + a.Ime + " u bazu podataka");
+                foreach (Fabrika a in actors)
+                {
+                    MessageBox.Show("Dodata je prodavnica " + a.Ime + " u bazu podataka");
+                }
             }
         }
 

@@ -38,14 +38,22 @@ namespace Neo4J_Repository
             queryDict.Add("ad", ad);
             queryDict.Add("rad", rad);
             queryDict.Add("pr", pr);
-            var query = new CypherQuery("CREATE (n:Fabrika {Ime: {im}, Adresa: {ad}, BrRadnika: {rad}, Proizvodnja: {pr}}) return n",
-                                                            queryDict, CypherResultMode.Set);
-
-            List<Fabrika> actors = ((IRawGraphClient)clients).ExecuteGetCypherResults<Fabrika>(query).ToList();
-
-            foreach (Fabrika a in actors)
+            if (String.IsNullOrEmpty(im) || String.IsNullOrEmpty(ad) || String.IsNullOrEmpty(rad) || String.IsNullOrEmpty(pr))
             {
-                MessageBox.Show("Dodata je fabrika " + a.Ime + " u bazu podataka");
+                MessageBox.Show("Morate uneti tekst u polja!");
+            }
+            else
+            {
+                var query = new CypherQuery("CREATE (n:Fabrika {Ime: {im}, Adresa: {ad}, BrRadnika: {rad}, Proizvodnja: {pr}}) return n",
+                                                                queryDict, CypherResultMode.Set);
+
+                List<Fabrika> actors = ((IRawGraphClient)clients).ExecuteGetCypherResults<Fabrika>(query).ToList();
+
+                foreach (Fabrika a in actors)
+                {
+                    MessageBox.Show("Dodata je fabrika " + a.Ime + " u bazu podataka");
+                }
+                
             }
         }
 
