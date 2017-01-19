@@ -264,6 +264,94 @@ namespace Neo4J_Repository
             }
         }
 
+        private void button7_Click(object sender, EventArgs e)
+        {
+
+            string fabrikaIme = textBox2.Text;
+
+            Dictionary<string, object> queryDict = new Dictionary<string, object>();
+            queryDict.Add("Fab", fabrikaIme);
+
+            var query = new Neo4jClient.Cypher.CypherQuery("Match(n: Fabrika) where n.Ime = {Fab} OPTIONAL MATCH (n) -[r] - () DELETE r, n RETURN n",
+                                                          queryDict, CypherResultMode.Set);
+            try
+            {
+
+                List<Fabrika> fabrika = ((IRawGraphClient)client).ExecuteGetCypherResults<Fabrika>(query).ToList();
+                MessageBox.Show("Fabrika " + fabrikaIme + " je obrisana iz baze podataka");
+            }
+            catch
+            {
+                MessageBox.Show("Greska!");
+            }
+        }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            string prodavnicaIme = textBox3.Text;
+
+            Dictionary<string, object> queryDict = new Dictionary<string, object>();
+            queryDict.Add("Prod", prodavnicaIme);
+
+            var query = new Neo4jClient.Cypher.CypherQuery("Match(n: Prodavnica) where n.Ime = {Prod} OPTIONAL MATCH (n) -[r] - () DELETE r, n return n",
+                                                          queryDict, CypherResultMode.Set);
+            try
+            {
+
+                List<Prodavnica> fabrika = ((IRawGraphClient)client).ExecuteGetCypherResults<Prodavnica>(query).ToList();
+                MessageBox.Show("Prodavnica " + prodavnicaIme + " je obrisana iz baze podataka");
+            }
+            catch
+            {
+                MessageBox.Show("Greska!");
+            }
+
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            string prevoznikIme = textBox4.Text;
+
+            Dictionary<string, object> queryDict = new Dictionary<string, object>();
+            queryDict.Add("Prev", prevoznikIme);
+
+            var query = new Neo4jClient.Cypher.CypherQuery("Match(n: Prevoznik) where n.Ime = {Prev} OPTIONAL MATCH (n) -[r] - () DELETE r, n return n ",
+                                                          queryDict, CypherResultMode.Set);
+            try
+            {
+
+                List<Prevoznik> fabrika = ((IRawGraphClient)client).ExecuteGetCypherResults<Prevoznik>(query).ToList();
+                MessageBox.Show("Prevoznik " + prevoznikIme + " je obrisan iz baze podataka");
+        }
+            catch
+            {
+                MessageBox.Show("Greska!");
+            }
+}
+
+        private void button19_Click(object sender, EventArgs e)
+        {
+            string isporukaIme = textBox5.Text;
+            
+            //try
+            //{
+            client.Cypher
+                .Match("(i: Isporuka)")
+                .WithParam("k", isporukaIme)
+                    .OptionalMatch("(i)<-[r]-()")
+                    .Where("i.IdIsporuke = {k}")
+                    .Delete("r, i")
+                    .ExecuteWithoutResults();
+
+                MessageBox.Show("Isporuka " + isporukaIme + " je obrisana iz baze podataka");
+            //}
+            //catch
+            //{
+            //    MessageBox.Show("Greska!");
+            //}
+
+}
+
 
 
         //        private void button4_Click(object sender, EventArgs e)
