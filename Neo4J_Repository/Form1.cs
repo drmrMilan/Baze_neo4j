@@ -50,7 +50,6 @@ namespace Neo4J_Repository
             List<Isporuka> isporuke = ((IRawGraphClient)client).ExecuteGetCypherResults<Isporuka>(query).ToList();
             foreach (Isporuka i in isporuke)
             {
-                //DateTime bday = a.getBirthday();
                 MessageBox.Show("ID VOZILA: " + i.IdVozila + "\n"+ "ID ISPORUKE: " + i.IdIsporuke);
             }
         }
@@ -377,87 +376,6 @@ namespace Neo4J_Repository
             else
                 MessageBox.Show("Morate uneti text!");
         }
-
-
-
-        //        private void button4_Click(object sender, EventArgs e)
-        //        {
-        //            string directorName = ".*" + directorTextBox.Text + ".*";
-
-        //            Dictionary<string, object> queryDict = new Dictionary<string, object>();
-        //            queryDict.Add("directorName", directorName);
-
-
-
-        //            var query = new Neo4jClient.Cypher.CypherQuery("start n=node(*) match (n)-[r:DIRECTED]->(m) where exists(n.name) and n.name =~ {directorName} return m",
-        //                                                            queryDict, CypherResultMode.Set);
-
-        //            List<Movie> movies = ((IRawGraphClient)client).ExecuteGetCypherResults<Movie>(query).ToList();
-
-        //            foreach (Movie m in movies)
-        //            {
-        //                MessageBox.Show(m.title);
-        //            }
-        //        }
-
-        //        private void button5_Click(object sender, EventArgs e)
-        //        {
-        //            string directorName = ".*" + directorActorsTextBox.Text + ".*";
-
-        //            Dictionary<string, object> queryDict = new Dictionary<string, object>();
-        //            queryDict.Add("directorName", directorName);
-
-
-
-        //            var query = new Neo4jClient.Cypher.CypherQuery("start n=node(*) match (n)-[r:DIRECTED]->(m)<-[r1:ACTS_IN]-(a) where exists(n.name) and n.name =~ {directorName} return a",
-        //                                                            queryDict, CypherResultMode.Set);
-
-        //            List<Actor> actors = ((IRawGraphClient)client).ExecuteGetCypherResults<Actor>(query).ToList();
-
-        //            foreach (Actor a in actors)
-        //            {
-        //                MessageBox.Show(a.name);
-        //            }
-        //        }
-
-        //        private void button6_Click(object sender, EventArgs e)
-        //        {
-        //            AddActor addActorForm = new AddActor();
-        //            addActorForm.client = client;
-        //            addActorForm.ShowDialog();
-        //        }
-
-        //        private void button7_Click(object sender, EventArgs e)
-        //        {
-
-        //            string actorName = ".*student.*";
-
-        //            Dictionary<string, object> queryDict = new Dictionary<string, object>();
-        //            queryDict.Add("actorName", actorName);
-
-        //            var query = new Neo4jClient.Cypher.CypherQuery("start n=node(*) where (n:Actor) and exists(n.name) and n.name =~ {actorName} delete n",
-        //                                                            queryDict, CypherResultMode.Projection);
-
-        //            List<Actor> actors = ((IRawGraphClient)client).ExecuteGetCypherResults<Actor>(query).ToList();
-
-        //            foreach (Actor a in actors)
-        //            {
-        //                MessageBox.Show(a.name);
-        //            }
-        //        }
-
-        //        private void button8_Click(object sender, EventArgs e)
-        //        {
-        //            var query = new Neo4jClient.Cypher.CypherQuery("start n=node(*) where (n:Actor) and has(n.name) and n.name =~ \".*student.*\" set n.biography = 'mnogo dobar student' return n",
-        //                                                            new Dictionary<string, object>(), CypherResultMode.Set);
-
-        //            List<Actor> actors = ((IRawGraphClient)client).ExecuteGetCypherResults<Actor>(query).ToList();
-
-        //            foreach (Actor a in actors)
-        //            {
-        //                MessageBox.Show(a.biography);
-        //            }
-        //        }
     }
 }
 

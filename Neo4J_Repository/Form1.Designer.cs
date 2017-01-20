@@ -454,6 +454,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.actorNameTextBox);
             this.Controls.Add(this.button1);
+            this.Cursor = System.Windows.Forms.Cursors.Default;
             this.Name = "Form1";
             this.Text = "Transporter";
             this.Load += new System.EventHandler(this.Form1_Load);
