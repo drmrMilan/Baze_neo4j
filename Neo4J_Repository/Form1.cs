@@ -268,42 +268,41 @@ namespace Neo4J_Repository
         {
 
             string fabrikaIme = textBox2.Text;
-
-            Dictionary<string, object> queryDict = new Dictionary<string, object>();
-            queryDict.Add("Fab", fabrikaIme);
-
-            var query = new Neo4jClient.Cypher.CypherQuery("Match(n: Fabrika) where n.Ime = {Fab} OPTIONAL MATCH (n) -[r] - () DELETE r, n RETURN n",
-                                                          queryDict, CypherResultMode.Set);
+            
+           
             try
             {
-
-                List<Fabrika> fabrika = ((IRawGraphClient)client).ExecuteGetCypherResults<Fabrika>(query).ToList();
-                MessageBox.Show("Fabrika " + fabrikaIme + " je obrisana iz baze podataka");
+                var results = client.Cypher
+                    .Match("()-[g: PREVOZI_ZA]-(n: Fabrika)-[r: UTOVAR]-()")
+                    .Where((Fabrika n) => n.Ime == fabrikaIme).Delete("r, g, n")
+                    .Return((n, r) => new { prod = n.As<Node<Fabrika>>().Data.Ime, veza = r.As<Node<Utovar>>().Data.Godina}).Results ;
+                MessageBox.Show("Prodavnica " + fabrikaIme + " je obrisana iz baze podataka");
+                textBox2.Clear();
             }
             catch
             {
                 MessageBox.Show("Greska!");
+                textBox2.Clear();
             }
         }
 
         private void button15_Click(object sender, EventArgs e)
         {
             string prodavnicaIme = textBox3.Text;
-
-            Dictionary<string, object> queryDict = new Dictionary<string, object>();
-            queryDict.Add("Prod", prodavnicaIme);
-
-            var query = new Neo4jClient.Cypher.CypherQuery("Match(n: Prodavnica) where n.Ime = {Prod} OPTIONAL MATCH (n) -[r] - () DELETE r, n return n",
-                                                          queryDict, CypherResultMode.Set);
+           
             try
             {
-
-                List<Prodavnica> fabrika = ((IRawGraphClient)client).ExecuteGetCypherResults<Prodavnica>(query).ToList();
+                var results = client.Cypher
+                    .Match("(n: Prodavnica)<-[r: ISTOVAR]-()")
+                    .Where((Prodavnica n) => n.Ime == prodavnicaIme).Delete("r, n")
+                    .Return((n, r) =>new { prod = n.As<Node<Prodavnica>>().Data.Ime, veza = r.As<Node<Istovar>>().Data.Godina }).Results;
                 MessageBox.Show("Prodavnica " + prodavnicaIme + " je obrisana iz baze podataka");
+                textBox3.Clear();
             }
             catch
             {
                 MessageBox.Show("Greska!");
+                textBox3.Clear();
             }
 
         }
@@ -311,46 +310,73 @@ namespace Neo4J_Repository
         private void button14_Click(object sender, EventArgs e)
         {
             string prevoznikIme = textBox4.Text;
-
-            Dictionary<string, object> queryDict = new Dictionary<string, object>();
-            queryDict.Add("Prev", prevoznikIme);
-
-            var query = new Neo4jClient.Cypher.CypherQuery("Match(n: Prevoznik) where n.Ime = {Prev} OPTIONAL MATCH (n) -[r] - () DELETE r, n return n ",
-                                                          queryDict, CypherResultMode.Set);
             try
             {
-
-                List<Prevoznik> fabrika = ((IRawGraphClient)client).ExecuteGetCypherResults<Prevoznik>(query).ToList();
+                var results = client.Cypher
+                    .Match("()-[g:PREVOZI_ZA]-(n: Prevoznik)-[r: OD_STRANE]-()")
+                    .Where((Prevoznik n) => n.Ime == prevoznikIme).Delete("r, g, n")
+                    .Return((n) => new { prod = n.As<Node<Prevoznik>>().Data.Ime}).Results;
+                if (results.Count() == 0) {
+                }
                 MessageBox.Show("Prevoznik " + prevoznikIme + " je obrisan iz baze podataka");
-        }
+                textBox4.Clear();
+            }
             catch
             {
                 MessageBox.Show("Greska!");
+                textBox4.Clear();
             }
-}
+        }
 
         private void button19_Click(object sender, EventArgs e)
         {
             string isporukaIme = textBox5.Text;
+
+          
+            try
+            {
+                var results = client.Cypher
+                    .Match("()-[g]-(n: Isporuka)-[r]-()")
+                    .Where((Isporuka n) => n.IdIsporuke == isporukaIme).Delete("r, g, n")
+                    .Return((n) => new { prod = n.As<Node<Isporuka>>().Data.IdIsporuke }).Results;
+                MessageBox.Show("Isporuka sa brojem:  " + isporukaIme + " je obrisana iz baze podataka");
+                textBox5.Clear();
+            }
+            catch
+            {
+                MessageBox.Show("Greska!");
+                textBox5.Clear();
+            }
+
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
             
-            //try
-            //{
-            client.Cypher
-                .Match("(i: Isporuka)")
-                .WithParam("k", isporukaIme)
-                    .OptionalMatch("(i)<-[r]-()")
-                    .Where("i.IdIsporuke = {k}")
-                    .Delete("r, i")
-                    .ExecuteWithoutResults();
+            string a = textBox6.Text;
+            if (!String.IsNullOrEmpty(a))
+                Form6.genform6(client, a);
+            else
+                MessageBox.Show("Morate uneti text!");
+        }
 
-                MessageBox.Show("Isporuka " + isporukaIme + " je obrisana iz baze podataka");
-            //}
-            //catch
-            //{
-            //    MessageBox.Show("Greska!");
-            //}
+        private void button17_Click(object sender, EventArgs e)
+        {
+            string a = textBox7.Text;
+            if (!String.IsNullOrEmpty(a))
+                Form7.genform7(client, a);
+            else
+                MessageBox.Show("Morate uneti text!");
+        }
 
-}
+        private void button16_Click(object sender, EventArgs e)
+        {
+            string a = textBox8.Text;
+            if (!String.IsNullOrEmpty(a))
+                Form8.genform8(client, a);
+            else
+                MessageBox.Show("Morate uneti text!");
+        }
 
 
 
