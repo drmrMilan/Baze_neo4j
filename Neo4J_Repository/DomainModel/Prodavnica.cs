@@ -1,4 +1,5 @@
-﻿ using System;
+﻿using ServiceStack.Text;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +12,10 @@ namespace Neo4J_Repository.DomainModel
         public string Ime { set; get; }
         public string Adresa { set; get; }
         public string Roba { set; get; }
+
+        public string ToJsonString()
+        {
+            return JsonSerializer.SerializeToString(this);
+        }
     }
 }
